@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import CommentList from "./CommentList";
 
-export default class CommentList extends Component(){
+export default class ArticleComment extends Component{
     state = {
         isOpen:false
     }
@@ -15,15 +16,20 @@ export default class CommentList extends Component(){
         return this.state.isOpen ? "Hide comments" : "Show Comments";
     }
 
-    getCommentBody(){
-
+    getCommentBody(comments){
+        return this.state.isOpen ? <CommentList comments={comments}/> : null;
     }
 
     render(){
+        const comments = this.props.comments;
         return (
             <div>
+                <h5>Leave your comment:</h5>
+                <div>
+                    <textarea/>
+                </div>
                 <a href="#" onClick={this.toggleOpen}>{this.getCommentHeader()}</a>
-                {this.getCommentBody()}
+                {this.getCommentBody(comments)}
             </div>
         )
     }
