@@ -15,13 +15,13 @@ export default class Article extends Component {
         const {article} = this.props;
         return (
             <section>
-                <h2 onClick={this.toggleOpen}>
+                <h3 onClick={this.toggleOpen}>
                     {article.title}
-                </h2>
+                </h3>
                 {this.getBody()}
                 {this.getComments()}
             </section>
-        )
+        );
     }
 
     getBody() {
