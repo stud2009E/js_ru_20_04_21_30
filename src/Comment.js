@@ -1,15 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class Comment extends Component {
-
-    constructor(){
-        super();
-    }
-
-    render(){
-        const {comment} = this.props;
-        return <div>{comment.text}
-            <p><b>{comment.user}</b></p>
+function Comment ({comment}){
+    return (
+        <div>{comment.text}
+            <p><b>by {comment.user}</b></p>
         </div>
-    }
+    );
 }
+
+export default Comment;

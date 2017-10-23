@@ -6,8 +6,9 @@ export default class Article extends Component {
     constructor() {
         super();
         this.state = {
-            isOpen: false
-        }
+            isOpen: false,
+            isCommOpen: false
+        };
     }
 
     render() {
@@ -18,23 +19,27 @@ export default class Article extends Component {
                     {article.title}
                 </h3>
                 {this.getBody()}
-                {this.getArticleComments()}
+                {this.getComments()}
             </section>
         );
     }
 
     getBody() {
-        return this.state.isOpen && <div>{this.props.article.text}</div>;
+        return this.state.isOpen &&
+            <div>
+                {this.props.article.text}
+            </div>;
     }
 
-    getArticleComments(){
+    getComments() {
         const {comments} = this.props.article;
         return this.state.isOpen && <CommentList comments={comments}/>;
     }
 
     toggleOpen = (ev) => {
         this.setState({
-            isOpen: !this.state.isOpen
-        })
+            isOpen: !this.state.isOpen,
+            isCommOpen: this.state.isCommOpen
+        });
     }
 }
