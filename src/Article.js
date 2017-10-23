@@ -68,7 +68,7 @@ export default class Article extends Component {
     toggleOpen = (ev) => {
         this.setState({
             isOpen: !this.state.isOpen,
-            isCommOpen: this.state.isOpen
+            isCommOpen: this.state.isCommOpen
         });
     }
 }
