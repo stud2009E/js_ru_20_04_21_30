@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Comment from './Comment';
+import CommentList from './CommentList';
 
 export default class Article extends Component {
 
@@ -29,7 +29,7 @@ export default class Article extends Component {
 
     getArticleComments(){
         const {comments} = this.props.article;
-        return this.state.isOpen && comments && <Comment comments={comments}/>;
+        return this.state.isOpen && <CommentList comments={comments}/>;
     }
 
     toggleOpen = (ev) => {
