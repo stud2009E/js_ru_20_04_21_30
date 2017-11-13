@@ -1,7 +1,8 @@
-import React from 'react'
-import Article from './Article'
+import React from 'react';
+import Article from './Article';
+import PropTypes from 'prop-types';
 
-export default function ArticleList({articles}) {
+function ArticleList({articles}) {
     const elements = articles.map(article => <li key={article.id}><Article article={article}/></li>)
     return (
         <ul>
@@ -9,3 +10,10 @@ export default function ArticleList({articles}) {
         </ul>
     )
 }
+
+ArticleList.propTypes = {
+    articles: PropTypes.array.isRequired
+}
+
+export default ArticleList;
+

@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import Comment from './Comment';
 
 export default class CommentList extends Component{
+
+    static defaultProp = {
+        comments:[]
+    }
+
     constructor(){
         super();
-
         this.state = {
             isOpen: false
         };
@@ -33,11 +37,7 @@ export default class CommentList extends Component{
             return <p>{sNoComment}</p>;
         }
         return <ul>
-            {comments.map(comment =>
-                <li key={comment.id}>
-                    <Comment comment={comment}/>
-                </li>)
-            }
+            {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
         </ul>;
     }
 
