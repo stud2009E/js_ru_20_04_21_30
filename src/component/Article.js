@@ -1,54 +1,39 @@
 import React, {Component} from 'react';
 import CommentList from './CommentList';
 import PropTypes from 'prop-types';
+import togglOpen from  '../decorators/toggleOpen';
 
-export default class Article extends Component {
+class Article extends Component {
 
     static propTypes = {
         article: PropTypes.shape({
             title: PropTypes.string.isRequired,
             text: PropTypes.string,
             comments: PropTypes.array
-        }).isRequired
-    }
-
-    constructor() {
-        super();
-        this.state = {
-            isOpen: false,
-            isCommOpen: false
-        };
+        }).isRequired,
+        isOpen: PropTypes.bool.isRequired
     }
 
     render() {
-        const {article} = this.props;
+        const {article, toggleOpen} = this.props;
         return (
             <section>
-                <h3 onClick={this.toggleOpen}>
+                <h3 onClick={toggleOpen}>
                     {article.title}
                 </h3>
-                {this.getBody()}
-                {this.getComments()}
+                {this.getBody(this.props)}
             </section>
         );
     }
 
-    getBody() {
-        return this.state.isOpen &&
+    getBody({isOpen, article}) {
+        return isOpen && (
             <div>
-                {this.props.article.text}
-            </div>;
-    }
-
-    getComments() {
-        const {comments} = this.props.article;
-        return this.state.isOpen && <CommentList comments={comments}/>;
-    }
-
-    toggleOpen = (ev) => {
-        this.setState({
-            isOpen: !this.state.isOpen,
-            isCommOpen: this.state.isCommOpen
-        });
+                {article.text}
+                {<CommentList comments={article.comments}/>}
+            </div>
+        );
     }
 }
+
+export default togglOpen(Article);
