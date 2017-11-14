@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import CommentList from './CommentList';
 import PropTypes from 'prop-types';
-import togglOpen from  '../decorators/toggleOpen';
 
 class Article extends Component {
 
@@ -12,6 +11,18 @@ class Article extends Component {
             comments: PropTypes.array
         }).isRequired,
         isOpen: PropTypes.bool.isRequired
+    }
+
+    componentWillUpdate(){
+        console.log('--', 'WilUpdate');
+    }
+
+    componentDidMount(){
+        console.log('--', 'DidMount');
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.isOpen != this.props.isOpen;
     }
 
     render() {
@@ -36,4 +47,4 @@ class Article extends Component {
     }
 }
 
-export default togglOpen(Article);
+export default Article;
