@@ -1,54 +1,35 @@
-import React, {Component} from 'react';
+import React from 'react';
 import CommentList from './CommentList';
 import PropTypes from 'prop-types';
+import toggleOpen from '../decorators/toggleOpen';
 
-export default class Article extends Component {
+function Article (props){
+    const {article, toggleOpen} = props;
+    return (
+        <section>
+            <h3 onClick={toggleOpen}>
+                {article.title}
+            </h3>
+            {getBody(props)}
+            {getComments(props)}
+        </section>
+    );
+};
 
-    static propTypes = {
-        article: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            text: PropTypes.string,
-            comments: PropTypes.array
-        }).isRequired
-    }
+function getBody({isOpen, article}) {
+    return isOpen ? <div>{article.text}</div> : null;
+};
 
-    constructor() {
-        super();
-        this.state = {
-            isOpen: false,
-            isCommOpen: false
-        };
-    }
+function getComments({isOpen, article}) {
+    return isOpen && <CommentList comments={article.comments}/>;
+};
 
-    render() {
-        const {article} = this.props;
-        return (
-            <section>
-                <h3 onClick={this.toggleOpen}>
-                    {article.title}
-                </h3>
-                {this.getBody()}
-                {this.getComments()}
-            </section>
-        );
-    }
+Article.propTypes = {
+    article: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        text: PropTypes.string,
+        comments: PropTypes.array
+    }).isRequired
+};
 
-    getBody() {
-        return this.state.isOpen &&
-            <div>
-                {this.props.article.text}
-            </div>;
-    }
-
-    getComments() {
-        const {comments} = this.props.article;
-        return this.state.isOpen && <CommentList comments={comments}/>;
-    }
-
-    toggleOpen = (ev) => {
-        this.setState({
-            isOpen: !this.state.isOpen,
-            isCommOpen: this.state.isCommOpen
-        });
-    }
-}
+export default toggleOpen(Article);
