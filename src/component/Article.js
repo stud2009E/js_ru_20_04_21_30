@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CommentList from './CommentList';
 import PropTypes from 'prop-types';
+import {deleteArticle} from '../AC/article';
 
 class Article extends Component {
 
@@ -14,7 +15,7 @@ class Article extends Component {
     }
 
     componentWillUpdate(){
-        console.log('--', 'WilUpdate');
+        console.log('--', 'WillUpdate');
     }
 
     componentDidMount(){
@@ -31,10 +32,18 @@ class Article extends Component {
             <section>
                 <h3 onClick={toggleOpen}>
                     {article.title}
+                    <a href="" onClick={this.handleDelete}> delete </a>
                 </h3>
                 {this.getBody(this.props)}
             </section>
         );
+    }
+
+    handleDelete = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        deleteArticle(this.props.article.id);
     }
 
     getBody({isOpen, article}) {
